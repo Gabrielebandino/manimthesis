@@ -3,7 +3,7 @@ import numpy as np
 
 class GrayText(Text):
     def __init__(self, *args, **kwargs):
-        kwargs['color'] = kwargs.get('color', '#0000ff')  # Set default color to gray
+        kwargs['color'] = kwargs.get('color', '#000000')  # Set default color to gray
         super().__init__(*args, **kwargs)
 
 class FeatureSelection2(Scene):
@@ -27,37 +27,47 @@ class FeatureSelection2(Scene):
             col_labels=[GrayText(str(i)) for i in range(1, 11)],
             top_left_entry=GrayText("Feature Selection")
         )
-
+        for i, col in enumerate((table.get_columns())[1:]):
+            for j, cell in enumerate(col[1:]):
+                cell.set_fill("#ffffff", opacity=1)
+                cell.set_color("#afafaf")
         table.scale(0.5)  # Scale the table to fit within the video space
         table.move_to(ORIGIN)  # Center the table in the scene
-        table.set_color( "#373737" )
+        table.set_color("#373737")
+        
         self.play(Create(table))
         self.wait(0.5)
 
         # Step 2: Highlight columns 2, 3, 6, and 7
         highlighted_columns = [2, 3, 6, 7]
-        highlight_color = "#d3d3d3"  # Light grey background for highlighted cells
+        highlight_color = "#ffffff"  # Light grey background for highlighted cells
 
         for i, col in enumerate(highlighted_columns):
             col_cells = table.get_columns()[col - 1]
             for j, cell in enumerate(col_cells):
-                table.add_highlighted_cell((j,col), color=GREEN)
+                table.add_highlighted_cell((j, col), color=GREEN)
                 cell.set_fill(highlight_color, opacity=1)
-                cell.set_color("#373737")
-
-        self.wait(1)
+                #cell.set_color("#373737")
 
         # Step 3: Create a new table with the selected columns
         selected_data = [
             [row[i - 1] for i in highlighted_columns]
             for row in table_data
         ]
+
+        self.wait(1.5)
+
         new_table = Table(
             selected_data,
             row_labels=[GrayText(str(i)) for i in range(1, 7)],
             col_labels=[GrayText(str(i)) for i in highlighted_columns],
             top_left_entry=GrayText("Selected Features")
         )
+        new_table.set_color("#373737")
+        for i, col in enumerate((new_table.get_columns())[1:]):
+            for j, cell in enumerate(col[1:]):
+                cell.set_fill("#ffffff", opacity=1)
+                cell.set_color("#afafaf")
 
         new_table.scale(0.5)  # Scale the new table to fit within the video space
         new_table.move_to(ORIGIN)  # Center the new table in the scene
@@ -65,6 +75,10 @@ class FeatureSelection2(Scene):
         self.play(ReplacementTransform(table, new_table))
         self.wait(2)
 
+        # Fade out the table and wait 1 second
+        self.play(FadeOut(new_table))
+        self.wait(1)
+
 if __name__ == "__main__":
     script = __file__
-    os.system(f"manim -pql {script} FeatureSelection")
+    os.system(f"manim -pql {script} FeatureSelection2")
