@@ -47,7 +47,7 @@ class FeatureSelection2(Scene):
             for j, cell in enumerate(col_cells):
                 table.add_highlighted_cell((j, col), color=GREEN)
                 cell.set_fill(highlight_color, opacity=1)
-                #cell.set_color("#373737")
+                cell.set_color("#373737")
 
         # Step 3: Create a new table with the selected columns
         selected_data = [
