@@ -186,9 +186,9 @@ class NN(Scene):
         trapezoid2.rotate(-PI / 2, axis=IN)
 
         # Add LSTM Layer text on top of each trapezoid
-        lstm_text1 = Text("LSTM Layer", color="#373737")
+        lstm_text1 = Text("Encoder", color="#373737")
         lstm_text1.next_to(trapezoid1, UP)
-        lstm_text2 = Text("LSTM Layer", color="#373737")
+        lstm_text2 = Text("Decoder", color="#373737")
         lstm_text2.next_to(trapezoid2, UP)
 
         self.add(trapezoid1, trapezoid2, lstm_text1, lstm_text2)
