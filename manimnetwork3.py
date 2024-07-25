@@ -176,7 +176,7 @@ class NN(Scene):
         )
         trapezoid2 = Polygon(
             [-3, -1.5, 0], [3, -1.5, 0], [2.7, 0, 0], [-2.7, 0, 0],
-            fill_color=BLUE, fill_opacity=0.5
+            fill_color=BLUE, fill_opacity=0.45
         )
 
         # Position the trapezoids behind the first and third layer, facing inward
